@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <script>
+function enterTheCode(str)
+{
+  if(str.length==0)
+  {
+     document.getElementById("container").innerHTML="";
+     return;
+  } 
+   else
+ {
+    var xmlhttp=new XMLHttpRequest();
+     xmlhttp.onreadystatechange=function(){
+      if(this.readyState==4 && this.status==200)
+       {
+         document.getElementById("container").innerHTML=this.responseText;
+         var obj=JSON.parse(this.responseText);
+         console.log(obj);
+         var res=" ";
+         for(var i=0;i<10;i++){
+           res=res+"<p>"+obj.results[i].city+"</p>"
+         }
+          document.getElementById("container").innerHTML=res;
+      }
+     };
+     xmlhttp.open("GET", "https://api.openaq.org/v1/cities?country="+str, true);
+     xmlhttp.send();
+   }
+ }
+ 
+enterTheCode(country="IN")
+            </script>
+    </head>
+    <body id="container">
+
+    </body>
+</html>
